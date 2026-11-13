@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#4b3026">
+<title>Barbod Cafe | Coffee House</title>
+<style>
+
+@import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800;900&display=swap');
+:root{--bg:#f4eee5;--panel:#fffaf3;--coffee:#4b3026;--coffee2:#684638;--caramel:#b98252;--gold:#d6ad78;--cream:#fffaf3;--muted:#8b776b;--sage:#87927a}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:radial-gradient(ellipse at 50% 0%,#fffaf3 0,#f3e9dc 55%,#e9ddcf 100%);color:var(--coffee);font-family:Vazirmatn,Tahoma,sans-serif;overflow-x:hidden}
+button{font:inherit;cursor:pointer}
+#intro{position:fixed;inset:0;z-index:1000;background:linear-gradient(135deg,#3b261f,#72503c);display:grid;place-items:center;overflow:hidden;transition:opacity .8s,visibility .8s}
+#intro.done{opacity:0;visibility:hidden;pointer-events:none}
+.intro-title{text-align:center;z-index:2;padding:25px}
+.intro-title .tiny{color:#e8cba7;letter-spacing:4px;font-size:clamp(12px,2vw,17px)}
+.intro-title h1{font-size:clamp(42px,9vw,90px);margin:8px 0;color:#fff8ed;text-shadow:0 4px 25px #1b100b80}
+.intro-title p{font-size:clamp(15px,3vw,24px);color:#e8cba7;margin:0}
+.curtain{position:absolute;top:0;bottom:0;width:52%;background:repeating-linear-gradient(90deg,#493027 0 28px,#56392d 29px 54px);box-shadow:0 0 45px #1b100b;z-index:3}
+.curtain.left{left:0;border-right:4px solid #b68a61;transform-origin:left;animation:openLeft 1.3s 2.1s forwards}
+.curtain.right{right:0;border-left:4px solid #b68a61;transform-origin:right;animation:openRight 1.3s 2.1s forwards}
+@keyframes openLeft{to{transform:translateX(-105%) skewY(-3deg)}}
+@keyframes openRight{to{transform:translateX(105%) skewY(3deg)}}
+.skip{position:absolute;bottom:22px;z-index:8;background:#ffffff18;border:1px solid #ffffff65;color:white;padding:9px 18px;border-radius:30px}
+main{max-width:1100px;margin:auto;padding:0 20px 130px}
+.hero{min-height:78vh;display:flex;align-items:center;justify-content:center;text-align:center;position:relative;overflow:hidden}
+.hero:before,.hero:after{content:"✦";position:absolute;color:#b98252;font-size:25px;opacity:.5;animation:twinkle 2.5s infinite alternate}
+.hero:before{top:20%;right:15%}.hero:after{bottom:22%;left:13%;animation-delay:1s}
+@keyframes twinkle{to{opacity:.2;transform:scale(.7) rotate(70deg)}}
+.brand{font-size:clamp(48px,10vw,100px);font-weight:900;line-height:1.1;margin:0;color:#4b3026;text-shadow:0 3px 0 #d9c3ae,0 10px 30px #79563b25}
+.subtitle{display:inline-block;margin-top:18px;font-size:clamp(18px,3vw,27px);font-weight:800;color:#a66e43;letter-spacing:1px;animation:fall .9s .4s both}
+@keyframes fall{from{transform:translateY(-45px);opacity:0}to{transform:translateY(0);opacity:1}}
+.hero-note{color:var(--muted);margin-top:15px}
+.scroll-hint{margin-top:55px;color:#8b776b;font-size:13px}
+.spider-wrap{display:none}
+.section-heading{text-align:center;margin:35px 0 28px}
+.section-heading h2{font-size:clamp(32px,6vw,52px);margin:0;color:#684638;text-shadow:0 2px 0 #e1cbb4}
+.section-heading p{color:var(--muted);margin:5px 0}
+.menu-section{margin:35px 0 55px}
+.category-title{display:flex;align-items:center;gap:12px;margin:25px 0 15px;color:#684638;font-size:24px}
+.category-title:after{content:"";height:1px;flex:1;background:linear-gradient(90deg,transparent,#c6a98d)}
+.menu-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.menu-card{position:relative;display:flex;align-items:center;gap:12px;padding:16px;background:linear-gradient(145deg,#fffdf9,#f5ece1);border:1px solid #dfcdbb;border-radius:18px;box-shadow:0 8px 24px #563b2810;min-height:90px;transition:.25s}
+.menu-card:hover{transform:translateY(-3px);border-color:#b98252;box-shadow:0 12px 28px #563b2820}
+.food-icon{width:48px;height:48px;display:grid;place-items:center;flex:none;border-radius:14px;background:#e9ddcf;font-size:26px}
+.food-info{min-width:0;flex:1}
+.food-name{font-weight:700;font-size:16px}
+.food-price{color:#a66e43;font-size:13px;margin-top:3px}
+.add{border:0;background:linear-gradient(145deg,#8a6047,#5a3a2c);color:#fffaf3;font-size:25px;font-weight:800;width:38px;height:38px;border-radius:13px;box-shadow:0 4px 12px #563b2825;flex:none}
+.add:active{transform:scale(.88)}
+.added-pop{position:fixed;z-index:50;pointer-events:none;font-size:28px;transition:transform .65s cubic-bezier(.2,.8,.2,1),opacity .65s}
+.cartbar{position:fixed;z-index:80;bottom:14px;left:50%;transform:translateX(-50%);width:min(720px,calc(100% - 24px));display:flex;gap:10px;align-items:center;padding:10px;background:#fffaf3f2;border:1px solid #d5bea6;backdrop-filter:blur(15px);border-radius:20px;box-shadow:0 10px 40px #3c281c25}
+.cart-summary{display:flex;align-items:center;gap:9px;flex:1;min-width:0}
+.cart-icon{font-size:26px;position:relative}
+.count{position:absolute;top:-8px;right:-8px;background:#8a6047;color:white;border-radius:20px;min-width:18px;height:18px;font-size:11px;display:grid;place-items:center;font-weight:900}
+.cart-label{font-weight:700}.total{color:#a66e43;font-size:13px}
+.checkout-btn{border:0;border-radius:13px;padding:12px 18px;background:linear-gradient(135deg,#8a6047,#56392d);color:#fffaf3;font-weight:900;white-space:nowrap}
+.page{display:none;min-height:80vh;padding:65px 0 35px}
+.page.active{display:block}
+.checkout-card{max-width:650px;margin:30px auto;background:linear-gradient(145deg,#fffdf9,#f5ece1);border:1px solid #dfcdbb;border-radius:24px;padding:clamp(20px,5vw,38px);box-shadow:0 20px 60px #563b2818}
+.checkout-card h2{text-align:center;color:#684638;font-size:32px;margin:0 0 25px}
+.order-line{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 0;border-bottom:1px solid #e7d9cb}.order-details{display:flex;flex-direction:column;gap:3px}.remove-item{border:1px solid #bd8b78;background:#f8ece7;color:#965b4a;border-radius:9px;padding:6px 10px;font-size:12px;white-space:nowrap}.line-price{white-space:nowrap;color:#8a6047}
+.order-line small{color:var(--muted)}
+.pay-total{display:flex;justify-content:space-between;margin-top:24px;font-size:19px;font-weight:800;color:#684638}
+.pay-button,.back-button{width:100%;margin-top:22px;padding:14px;border-radius:14px;border:0;font-weight:900}
+.pay-button{background:linear-gradient(135deg,#8a6047,#56392d);color:#fffaf3}
+.back-button{background:#eee4d9;color:#684638;border:1px solid #dfcdbb}
+.payment-info{display:none;margin-top:18px;padding:18px;border-radius:15px;background:#f1e8dd;border:1px dashed #a98262;text-align:center}
+.payment-info.show{display:block}
+.card-mask{font-size:20px;letter-spacing:2px;color:#8a6047;margin:12px 0}
+.warning{font-size:12px;color:#8b776b;line-height:1.9}
+.empty{text-align:center;color:var(--muted);padding:20px}
+footer{text-align:center;color:#9a8779;font-size:12px;padding:30px 0}
+@media(max-width:600px){main{padding-left:14px;padding-right:14px}.menu-grid{gap:9px}.menu-card{padding:11px;gap:8px;min-height:82px}.food-icon{width:38px;height:38px;font-size:21px}.food-name{font-size:14px}.food-price{font-size:12px}.add{width:34px;height:34px}.cartbar{bottom:8px}.checkout-btn{padding:11px 13px;font-size:13px}.cart-label{font-size:13px}.total{font-size:11px}}
+
+</style>
+</head>
+<body>
+<div id="intro">
+  <div class="intro-title"><div class="tiny">WELCOME TO BARBOD CAFE</div><h1>Barbod Cafe ☕</h1><p>به کافه‌ی دنج ما خوش اومدی؛ قهوه‌ات آماده‌ست!</p></div>
+  
+  <div class="curtain left"></div><div class="curtain right"></div>
+  <button class="skip" onclick="closeIntro()">ورود به کافه ✨</button>
+</div>
+
+<div class="spider-wrap" id="spider"><div class="spider-line" id="spiderLine"></div><span class="spider">🕷️</span></div>
+
+<main>
+  <section id="homePage" class="page active">
+    <header class="hero">
+      <div>
+        <div style="font-size:42px;margin-bottom:12px">☕ 🥐 ✨</div>
+        <h1 class="brand">Barbod Cafe</h1>
+        <div class="subtitle">COFFEE • DESSERT • GOOD MOOD</div>
+        <div class="hero-note">یه گوشه‌ی دنج برای قهوه، شیرینی و حال خوب</div>
+        <div class="scroll-hint">برای دیدن منو اسکرول کن <span>↓</span></div>
+      </div>
+    </header>
+    <section class="menu-section" id="menu">
+      <div class="section-heading"><h2>MENU</h2><p>طعم‌های دلنشین کافه، برای لحظه‌های خوب</p></div>
+      <div id="menuContainer"></div>
+    </section>
+    <footer>Made with ☕ for Barbod Cafe</footer>
+  </section>
+
+  <section id="checkoutPage" class="page">
+    <div class="section-heading"><h2>تکمیل سفارش</h2><p>فقط یک قدم تا ثبت سفارش شما</p></div>
+    <div class="checkout-card">
+      <h2>☕ فاکتور سفارش</h2>
+      <div id="orderItems"></div>
+      <div class="pay-total"><span>مجموع مبلغ قابل پرداخت:</span><span id="checkoutTotal">۰</span></div>
+      <button class="pay-button" onclick="showPayment()">منتظر گارسون باش</button>
+      <div class="payment-info" id="paymentInfo">
+        <strong>منتظر گارسون باش</strong>
+        <p class="warning">ممنون از سفارش شما!</p>
+      </div>
+      <button class="back-button" onclick="showHome()">بازگشت به منو</button>
+    </div>
+  </section>
+</main>
+
+<div class="cartbar" id="cartbar">
+  <div class="cart-summary">
+    <div class="cart-icon">🛒<span class="count" id="cartCount">0</span></div>
+    <div><div class="cart-label">سبد خرید</div><div class="total" id="cartTotal">مجموع: ۰</div></div>
+  </div>
+  <button class="checkout-btn" onclick="goCheckout()">تکمیل سفارش ←</button>
+</div>
+
+<script>
+const menu = [
+ {title:'نوشیدنی گرم',icon:'☕',items:[['چای',20,'🍵'],['چای سبز',25,'🍃'],['نسکافه',25,'🥤'],['قهوه',35,'☕'],['دمنوش ویژه',35,'🫖']]},
+ {title:'نوشیدنی سرد',icon:'🧃',items:[['آب پرتقال',50,'🍊'],['آب هندوانه',50,'🍉'],['آب هویج',50,'🥕'],['آب سیب',50,'🍏'],['آب انار',50,'🍷'],['شربت آبلیمو',50,'🍋']]},
+ {title:'دسر',icon:'🍮',items:[['فرنی',60,'🍮'],['ژله',55,'🍧'],['بستنی (زمان‌های مشخص)',65,'🍨']]},
+ {title:'خوردنی',icon:'🍟',items:[['نیمرو',70,'🍳'],['پنکیک',100,'🥞'],['چیپس و پنیر',70,'🧀'],['اسنک ویژه',65,'🥪'],['سیب‌زمینی سرخ‌کرده',70,'🍟']]}
+];
+let cart=[];
+const fa=n=>Number(n).toLocaleString('fa-IR');
+function renderMenu(){
+ const root=document.getElementById('menuContainer');
+ root.innerHTML=menu.map((cat,ci)=>`<div class="category-title"><span>${cat.icon}</span>${cat.title}</div><div class="menu-grid">${cat.items.map((it,ii)=>`<article class="menu-card"><div class="food-icon">${it[2]}</div><div class="food-info"><div class="food-name">${it[0]}</div><div class="food-price">${fa(it[1])} هزار تومان</div></div><button class="add" aria-label="افزودن ${it[0]}" onclick="addItem('${it[0]}',${it[1]},this)">+</button></article>`).join('')}</div>`).join('');
+}
+function addItem(name,price,button){
+ cart.push({name,price});
+ updateCart();
+ const icon=document.createElement('div');icon.className='added-pop';icon.textContent='☕';
+ const r=button.getBoundingClientRect(), target=document.querySelector('.cart-icon').getBoundingClientRect();
+ icon.style.left=(r.left+r.width/2)+'px';icon.style.top=(r.top+r.height/2)+'px';document.body.appendChild(icon);
+ requestAnimationFrame(()=>{icon.style.transform=`translate(${target.left-r.left}px,${target.top-r.top}px) scale(.25) rotate(360deg)`;icon.style.opacity='0'});
+ setTimeout(()=>icon.remove(),700);
+ button.textContent='✓';setTimeout(()=>button.textContent='+',500);
+}
+function updateCart(){
+ document.getElementById('cartCount').textContent=fa(cart.length);
+ document.getElementById('cartTotal').textContent='مجموع: '+fa(cart.reduce((s,x)=>s+x.price,0))+' هزار تومان';
+}
+function goCheckout(){
+ document.getElementById('homePage').classList.remove('active');
+ document.getElementById('checkoutPage').classList.add('active');
+ document.getElementById('cartbar').style.display='none';
+ document.getElementById('spider').style.display='none';
+ const root=document.getElementById('orderItems');
+ renderOrderItems();
+ document.getElementById('paymentInfo').classList.remove('show');
+ window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function renderOrderItems(){
+ const root=document.getElementById('orderItems');
+ if(!cart.length){
+   root.innerHTML='<div class="empty">سبد خریدت خالیه! برای ادامه به منو برگرد ☕</div>';
+ } else {
+   root.innerHTML=cart.map((x,i)=>`<div class="order-line">
+     <div class="order-details"><strong>${x.name}</strong><small>محصول شماره ${fa(i+1)}</small></div>
+     <span class="line-price">${fa(x.price)} هزار تومان</span>
+     <button class="remove-item" onclick="removeItem(${i})" aria-label="حذف ${x.name}">حذف ✕</button>
+   </div>`).join('');
+ }
+ document.getElementById('checkoutTotal').textContent=fa(cart.reduce((s,x)=>s+x.price,0))+' هزار تومان';
+ updateCart();
+ document.getElementById('paymentInfo').classList.remove('show');
+}
+function removeItem(index){
+ cart.splice(index,1);
+ renderOrderItems();
+}
+
+function showHome(){
+ document.getElementById('checkoutPage').classList.remove('active');
+ document.getElementById('homePage').classList.add('active');
+ document.getElementById('cartbar').style.display='flex';
+ document.getElementById('spider').style.display='block';
+ window.scrollTo({top:0,behavior:'smooth'});
+}
+function showPayment(){
+ if(!cart.length){alert('اول از منو چیزی به سبد خرید اضافه کن!');return}
+ document.getElementById('paymentInfo').classList.add('show');
+}
+function closeIntro(){document.getElementById('intro').classList.add('done')}
+setTimeout(closeIntro,5200);
+window.addEventListener('scroll',()=>{
+ const max=Math.max(1,document.documentElement.scrollHeight-window.innerHeight);
+ const progress=window.scrollY/max;
+ document.getElementById('spiderLine').style.height=(70+progress*230)+'px';
+});
+renderMenu();updateCart();
+</script>
+</body>
+</html>
